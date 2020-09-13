@@ -331,7 +331,7 @@ function App() {
         </Group>
       </Panel>
       <Panel id="snippet" centered="true">
-        <PanelHeader left={<Icon28CancelOutline />}>Сниппет</PanelHeader>
+        <PanelHeader left={<Icon28CancelOutline onClick={()=> {setCurrentPanel("create")}} />}>Сниппет</PanelHeader>
         <Group>
           <Card mode="outline" size="l">
             <div style={{ width: "90vw", height: "350px" }}>
