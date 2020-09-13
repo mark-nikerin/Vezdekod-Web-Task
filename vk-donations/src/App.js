@@ -17,11 +17,14 @@ import {
   Textarea,
   FormLayoutGroup,
   Radio,
+  Card,
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 import Icon28TargetOutline from "@vkontakte/icons/dist/28/target_outline";
 import Icon28CalendarOutline from "@vkontakte/icons/dist/28/calendar_outline";
 import Icon56GalleryOutline from "@vkontakte/icons/dist/56/gallery_outline";
+import Icon28CancelOutline from "@vkontakte/icons/dist/28/cancel_outline";
+import Image from "./image.png";
 
 import "./App.css";
 
@@ -217,7 +220,7 @@ function App() {
               <Button
                 size="xl"
                 onClick={() => {
-                  setCurrentPanel("selectType");
+                  setCurrentPanel("snippet");
                   setIsReady(false);
                 }}
               >
@@ -292,6 +295,11 @@ function App() {
             <Textarea
               top="Описание"
               placeholder="На что пойдут деньги и как они кому-то помогут?"
+              onChange={(event) => {
+                event.target.value !== "" && event.target.value !== null
+                  ? setIsReady(true)
+                  : setIsReady(false);
+              }}
             />
             <Select top="Куда получать деньги">
               <option value="first">Счет VK Pay • 1234</option>
@@ -303,11 +311,46 @@ function App() {
             </Select>
           </FormLayout>
           <Div>
-            <Button size="xl" onClick={() => setCurrentPanel("selectType")}>
-              Далее
-            </Button>
+            {isReady ? (
+              <Button
+                size="xl"
+                onClick={() => {
+                  setCurrentPanel("snippet");
+                  setIsReady(false);
+                }}
+              >
+                Создать сбор
+              </Button>
+            ) : (
+              <Button style={{ backgroundColor: "#B6CFEB" }} size="xl">
+                Создать сбор
+              </Button>
+            )}
           </Div>
           <Div />
+        </Group>
+      </Panel>
+      <Panel id="snippet" centered="true">
+        <PanelHeader left={<Icon28CancelOutline />}>Сниппет</PanelHeader>
+        <Group>
+          <Card mode="outline" size="l">
+            <div style={{ width: "90vw", height: "350px" }}>
+            <Banner
+              mode="image"
+              size="m"
+              background={
+                <div
+                  style={{
+                    backgroundImage: `url(${Image})`,
+                    backgroundPosition: 'right bottom',
+                    backgroundSize: '102%',
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                />
+              }
+            />
+            </div>
+          </Card>
         </Group>
       </Panel>
     </View>
